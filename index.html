@@ -3,23 +3,31 @@
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="projects">
-      <p styles="italic">./Projects/</p>
-      <p>Gaze</p>
-      <p>Wuchang</p>
-      <p>Body Language</p>
-      <p>Weave</p>
-      <p>Do you see what I see</p>
-      <p>Polynode PCB</p>
-      <p>Swarm</p>
-      <div id="details"></div>
+    <div style="display: flex; flex-direction: row">
+      <div>
+        <h2>./projects/</h2>
+        <div class="projects">
+          <button onclick="contentInject('extraorganum')">Extra Organum</button>
+          <button onclick="contentInject('gaze')">Gaze</button>
+          <button onclick="contentInject('wuchang')">Wuchang</button>
+          <button onclick="contentInject('bodylanguage')">Body Language</button>
+          <button onclick="contentInject('doyouseewhatisee')">
+            Do you see what I see
+          </button>
+          <button onclick="contentInject('weave')">Weave</button>
+          <button onclick="contentInject('polynode pcb')">Polynode PCB</button>
+          <h2>./about/</h2>
+          <button onclick="contentInject('kuangyi')">Kuangyi Xing</button>
+          <button onclick="contentInject('cv')">CV</button>
+        </div>
+      </div>
+      <div id="content" class="content"></div>
+
     </div>
+    <script src="content.js"></script>
+
   </body>
 </html>

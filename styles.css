@@ -1,17 +1,204 @@
 .projects {
-  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  /* The widest button sets this column's width, and the italic hover makes it
+     narrower — which would shrink the column and shift the content beside it.
+     A floor holds the column steady; it can still grow for longer labels. */
+  min-width: 141px;
+  /* Buttons are direct flex items now, so they would stretch to the widest
+     one and centre their labels. Keep each hugging its own text, on the left. */
+  align-items: flex-start;
+
+  /* Keep every label on one line. Without this the longest two wrap, and the
+     italic hover — whose glyphs are narrower — unwraps them, collapsing the
+     button's height and shifting the list below it. */
+  button {
+    white-space: nowrap;
+  }
 }
 
 .about {
   margin-left: 180px;
 }
 
-.project-page {
-  min-height: 100vh;
+.title {
+  font-size: 20px;
+}
+
+.filteredimg {
+  filter: grayscale(30%);
+  /* Fixed width; the browser derives height from the file's own ratio. */
+}
+
+/* Portraits keep their upright 2:3. Pinning the ratio rather than leaving
+   height auto means any future image that isn't exactly 2:3 gets cropped to
+   match instead of standing a different height from its neighbours. */
+.portrait {
+  width: 195px;
+  height: 266px;
+  object-fit: cover;
+}
+
+.description {
+  background-color: white;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  flex-direction: row;
   gap: 20px;
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+    margin-left: 20px;
+  }
+
+  .annotation:last-child {
+    margin-top: auto;
+  }
+}
+
+.cv {
+  margin-left: 20px;
+  .emphasis {
+    font-style: italic;
+    font-size: 14px;
+    color: gray;
+  }
+}
+
+.annotation {
+  font-size: 14px;
+  color: gray;
+  font-style: italic;
+  max-width: 400px;
+}
+/* Video sits in the grid at the same width as the images. No controls —
+   the element itself is the play/pause target, so it needs to look clickable. */
+.video {
+  width: 400px;
+  aspect-ratio: 16 / 9;
+  border: none;
+  cursor: pointer;
+}
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  /* Without this, align-items defaults to stretch: any image sharing a row
+     with a taller one gets pulled to match it, distorting its ratio. */
+  align-items: flex-start;
+
+  /* Flex items default to flex-shrink:1, so they compress below their stated
+     width when the row runs out of room. Zero keeps every child at its own
+     size and lets it wrap to the next line instead. */
+  > * {
+    flex-shrink: 0;
+  }
+}
+.overlay {
+  position: relative;
+}
+
+.overlay-text {
+  opacity: 0;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  max-width: 300px;
+}
+
+.overlay:hover img {
+  filter: invert(1);
+  opacity: 0.3;
+}
+
+.overlay:hover .overlay-text {
+  opacity: 1;
+}
+
+img {
+  width: 400px;
+  height: auto;
+  display: block;
+}
+
+p {
+  font-size: 16px;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+  padding: 0;
+}
+
+button:hover {
+  font-style: italic;
+}
+
+summary::marker {
+  content: ".";
+}
+
+details[open] summary::marker {
+  content: "./";
+}
+
+/* ── 3D carousel ─────────────────────────────────────────────── */
+
+/* The scene supplies perspective so child transforms look 3D. */
+.carousel-scene {
+  width: 400px;
+  height: 560px;
+  perspective: 800px;
+}
+
+/* The carousel lives in 3D and spins continuously. */
+.carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: carousel-spin 12s linear infinite;
+}
+
+/* Each image is positioned on one face of the carousel. With 3
+   images the faces sit 120° apart; translateZ pushes them outward
+   so they don't overlap at the centre. */
+.carousel-cell {
+  position: absolute;
+  width: 400px;
+  height: 560px;
+  backface-visibility: hidden;
+}
+
+.carousel-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-cell:nth-child(1) {
+  transform: rotateY(0deg);
+}
+.carousel-cell:nth-child(2) {
+  transform: rotateY(120deg);
+}
+.carousel-cell:nth-child(3) {
+  transform: rotateY(240deg);
+}
+
+@keyframes carousel-spin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
 }
