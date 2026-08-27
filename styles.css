@@ -1,19 +1,16 @@
+.layout {
+  display: flex;
+  flex-direction: row;
+}
 .projects {
   display: flex;
   flex-direction: column;
   gap: 10px;
 
-  /* The widest button sets this column's width, and the italic hover makes it
-     narrower — which would shrink the column and shift the content beside it.
-     A floor holds the column steady; it can still grow for longer labels. */
-  min-width: 141px;
-  /* Buttons are direct flex items now, so they would stretch to the widest
-     one and centre their labels. Keep each hugging its own text, on the left. */
+  min-width: 160px;
+
   align-items: flex-start;
 
-  /* Keep every label on one line. Without this the longest two wrap, and the
-     italic hover — whose glyphs are narrower — unwraps them, collapsing the
-     button's height and shifting the list below it. */
   button {
     white-space: nowrap;
   }
@@ -200,5 +197,24 @@ details[open] summary::marker {
   }
   to {
     transform: rotateY(360deg);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .projects {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .description {
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .cv {
+    margin-top: 20px;
   }
 }
