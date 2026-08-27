@@ -200,6 +200,143 @@ details[open] summary::marker {
   }
 }
 
+/* ── Flying star ─────────────────────────────────────────────── */
+
+.star {
+  position: fixed;
+  pointer-events: none;
+}
+
+/* Top-right → bottom-left */
+.star-1 {
+  animation: star-fly-1 30s infinite;
+  animation-delay: 0s;
+}
+
+/* Bottom-left → top-right */
+.star-2 {
+  animation: star-fly-2 38s infinite;
+  animation-delay: -8s;
+}
+
+/* Left → right, mid-height */
+.star-3 {
+  animation: star-fly-3 30s infinite;
+  animation-delay: -15s;
+}
+
+/* Top-left → bottom-right */
+.star-4 {
+  animation: star-fly-4 42s infinite;
+  animation-delay: -5s;
+}
+
+/* Right → left, high */
+.star-5 {
+  animation: star-fly-5 35s infinite;
+  animation-delay: -20s;
+}
+
+@keyframes star-fly-1 {
+  0% {
+    top: -10vh;
+    right: -5vw;
+    opacity: 1;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    top: 90vh;
+    right: 105vw;
+    opacity: 0;
+  }
+}
+
+@keyframes star-fly-2 {
+  0% {
+    top: -5vh;
+    right: -10vw;
+    opacity: 1;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    top: 85vh;
+    right: 100vw;
+    opacity: 0;
+  }
+}
+
+@keyframes star-fly-3 {
+  0% {
+    top: -15vh;
+    right: 10vw;
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 80vh;
+    right: 95vw;
+    opacity: 0;
+  }
+}
+
+@keyframes star-fly-4 {
+  0% {
+    top: -8vh;
+    right: -15vw;
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 95vh;
+    right: 110vw;
+    opacity: 0;
+  }
+}
+
+@keyframes star-fly-5 {
+  0% {
+    top: -12vh;
+    right: 5vw;
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 75vh;
+    right: 100vw;
+    opacity: 1;
+  }
+}
+
+.mountain {
+  position: absolute;
+  bottom: 100px;
+}
+
 @media screen and (max-width: 600px) {
   .layout {
     flex-direction: column;
