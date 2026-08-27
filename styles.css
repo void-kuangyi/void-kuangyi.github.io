@@ -128,16 +128,11 @@ p {
 }
 
 a {
-  color: cornflowerblue;
   text-decoration: none;
 }
 
 a:hover {
   font-style: italic;
-}
-
-a:visited {
-  color: cornflowerblue;
 }
 
 button {
@@ -358,6 +353,8 @@ details[open] summary::marker {
   .projects {
     flex-direction: row;
     flex-wrap: wrap;
+    min-height: 150px;
+    align-items: center;
   }
   .description {
     flex-direction: column;
