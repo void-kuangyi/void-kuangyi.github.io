@@ -145,6 +145,26 @@ button:hover {
   font-style: italic;
 }
 
+/* ── Sidebar hover preview ───────────────────────────────────── */
+
+/* Sits above the page and tracks the cursor, so it is positioned from JS.
+   pointer-events:none keeps it from stealing the hover that summoned it —
+   without that it would flicker as the image slid under the pointer. */
+.preview {
+  position: fixed;
+  width: 100px;
+  height: auto;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  filter: grayscale(30%);
+}
+
+.preview.show {
+  opacity: 1;
+}
+
 summary::marker {
   content: ".";
 }
