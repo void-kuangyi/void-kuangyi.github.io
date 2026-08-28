@@ -65,12 +65,6 @@
   }
 }
 
-.annotation {
-  font-size: 14px;
-  color: gray;
-  font-style: italic;
-  max-width: 400px;
-}
 /* Video sits in the grid at the same width as the images. No controls —
    the element itself is the play/pause target, so it needs to look clickable. */
 .video {
@@ -129,12 +123,16 @@ p {
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 a:hover {
   font-style: italic;
 }
 
+a:visited {
+  color: black;
+}
 button {
   border: none;
   background-color: transparent;
@@ -154,7 +152,12 @@ summary::marker {
 details[open] summary::marker {
   content: "./";
 }
-
+.annotation {
+  font-size: 14px;
+  color: gray;
+  font-style: italic;
+  max-width: 400px;
+}
 /* ── 3D carousel ─────────────────────────────────────────────── */
 
 /* The scene supplies perspective so child transforms look 3D. */
