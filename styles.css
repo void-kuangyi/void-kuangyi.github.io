@@ -1,29 +1,51 @@
-/* The cursor is three lines of ASCII drawn into an SVG that the browser
-   rasterises. CSS can't take text directly, so the data URI is the whole
-   image — no file on disk. The three <text> rows spell:
+/* The cursor is ASCII drawn into an SVG that the browser rasterises. CSS
+   can't take text directly, so the data URI is the whole image — no file on
+   disk. Two <text> elements: an asterisk on the hotspot, and a backslash set
+   down and to the right of it, giving the star a tail:
 
-       %5C|/
-       -*-
-       /|%5C
+       *
+        %5C
 
    Backslash is written %5C, never a literal one: inside a CSS string a
    backslash is an escape character, so a raw one would be swallowed and the
-   star would lose its left arm. Monospace keeps the three rows in column with
-   each other — the site's Times has no fixed advance width and would stagger
-   them.
+   tail would vanish. The font is the site's own Times stack, so the cursor is
+   set in the same face as the page under it. Each character carries its own
+   x/y, so nothing here depends on a shared advance width the way a run of
+   text would.
 
    The two numbers after url() are the hotspot: which pixel is the actual
-   pointing spot. 15 15 is the centre of the 30x30 box, so the star's middle
-   sits on whatever it points at. The baselines are 10/18/26 rather than
-   centred on 15, because text hangs above its baseline — 18 puts the middle
-   row's ink on the hotspot, not its baseline.
+   pointing spot. 15 15 is the centre of the 30x30 box, and the asterisk's
+   y=18 rather than 15 is deliberate — text hangs above its baseline, so 18
+   puts the asterisk's ink on the hotspot instead of its baseline. Times sets
+   its asterisk high in the em box, nearer cap height than an x-height glyph,
+   so that y is the knob if the star drifts off the point it marks.
 
    `text` at the end is the fallback for any browser that won't take an SVG
    cursor. It inherits to the whole page, which is what makes one declaration
-   on body enough; the interactive elements below opt back out to pointer. */
+   on body close to enough — see the rule below for the elements the browser
+   would otherwise override. */
 body {
   cursor:
-    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30'><g font-family='ui-monospace, Menlo, monospace' font-size='12' text-anchor='middle' fill='black'><text x='15' y='18'>*</text><text x='20' y='28'>%5C</text></g></svg>")
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30'><g font-family='Times New Roman, Times, serif' font-size='14' text-anchor='middle' fill='black'><text x='15' y='18'>*</text><text x='20' y='28'>%5C</text></g></svg>")
+      15 15,
+    text;
+}
+
+/* The star covers everything, hand included. `cursor` inherits, so the body
+   declaration alone would reach most of the page — but the browser's own
+   stylesheet sets `pointer` on links and `default` on form controls, and
+   those beat inheritance. Naming the elements here is what actually takes the
+   hand away; `inherit` walks back up to the body star rather than restating
+   the data URI four times.
+
+   These stay legible as click targets without the hand: buttons and links
+   both go italic on hover, further down. */
+a,
+button,
+summary,
+.video {
+  cursor:
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30'><g font-family='Times New Roman, Times, serif' font-size='14' text-anchor='middle' fill='yellow'><text x='15' y='18'>*</text><text x='20' y='28'>%5C</text></g></svg>")
       15 15,
     text;
 }
@@ -96,12 +118,12 @@ body {
 }
 
 /* Video sits in the grid at the same width as the images. No controls —
-   the element itself is the play/pause target, so it needs to look clickable. */
+   the element itself is the play/pause target. It used to carry its own
+   pointer to look clickable; the star now covers the whole page instead. */
 .video {
   width: 400px;
   aspect-ratio: 16 / 9;
   border: none;
-  cursor: pointer;
 }
 
 .image-grid {
@@ -169,7 +191,6 @@ button {
   font-family: "Times New Roman", Times, serif;
   font-size: 16px;
   padding: 0;
-  cursor: pointer;
 }
 
 button:hover {
@@ -194,10 +215,6 @@ button:hover {
 
 .preview.show {
   opacity: 1;
-}
-
-summary {
-  cursor: pointer;
 }
 
 summary::marker {
