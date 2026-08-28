@@ -1,3 +1,33 @@
+/* The cursor is three lines of ASCII drawn into an SVG that the browser
+   rasterises. CSS can't take text directly, so the data URI is the whole
+   image — no file on disk. The three <text> rows spell:
+
+       %5C|/
+       -*-
+       /|%5C
+
+   Backslash is written %5C, never a literal one: inside a CSS string a
+   backslash is an escape character, so a raw one would be swallowed and the
+   star would lose its left arm. Monospace keeps the three rows in column with
+   each other — the site's Times has no fixed advance width and would stagger
+   them.
+
+   The two numbers after url() are the hotspot: which pixel is the actual
+   pointing spot. 15 15 is the centre of the 30x30 box, so the star's middle
+   sits on whatever it points at. The baselines are 10/18/26 rather than
+   centred on 15, because text hangs above its baseline — 18 puts the middle
+   row's ink on the hotspot, not its baseline.
+
+   `text` at the end is the fallback for any browser that won't take an SVG
+   cursor. It inherits to the whole page, which is what makes one declaration
+   on body enough; the interactive elements below opt back out to pointer. */
+body {
+  cursor:
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30'><g font-family='ui-monospace, Menlo, monospace' font-size='12' text-anchor='middle' fill='black'><text x='15' y='18'>*</text><text x='20' y='28'>%5C</text></g></svg>")
+      15 15,
+    text;
+}
+
 .layout {
   display: flex;
   flex-direction: row;
@@ -139,6 +169,7 @@ button {
   font-family: "Times New Roman", Times, serif;
   font-size: 16px;
   padding: 0;
+  cursor: pointer;
 }
 
 button:hover {
@@ -163,6 +194,10 @@ button:hover {
 
 .preview.show {
   opacity: 1;
+}
+
+summary {
+  cursor: pointer;
 }
 
 summary::marker {
