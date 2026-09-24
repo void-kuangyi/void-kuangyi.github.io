@@ -124,6 +124,9 @@ summary,
   width: 400px;
   aspect-ratio: 16 / 9;
   border: none;
+  /* Fill the 16:9 frame rather than letterboxing. Videos already 16:9 are
+     unaffected; a portrait source gets cropped to its middle band. */
+  object-fit: cover;
 }
 
 .image-grid {
